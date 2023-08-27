@@ -1,0 +1,15 @@
+{
+  "required": false,
+  "minVersion": "0.7",
+  "package": "",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "synapticraft.refmap.json",
+  "mixins": [],
+  "server": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
