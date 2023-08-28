@@ -1,25 +1,24 @@
 package net.silvertide.synapticraft.items.custom;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.EnchantmentTableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
-import static net.silvertide.synapticraft.Synapticraft.MOD_LOGGER;
+import javax.annotation.Nullable;
 
 public class SkillBookItem extends Item {
     private static final int USE_DURATION = 32;
@@ -37,7 +36,9 @@ public class SkillBookItem extends Item {
             pPlayer.startUsingItem(pUsedHand);
             return InteractionResultHolder.consume(itemstack);
         } else {
-            pPlayer.sendSystemMessage(Component.literal("This requires " + xpLevelRequired + " levels of xp to use."));
+            if(pLevel.isClientSide) {
+                pPlayer.sendSystemMessage(Component.literal("This requires " + xpLevelRequired + " levels of experience to use."));
+            }
             return InteractionResultHolder.fail(itemstack);
         }
     }
@@ -53,14 +54,29 @@ public class SkillBookItem extends Item {
 
         if (!pLevel.isClientSide) {
             ServerLevel serverlevel = (ServerLevel)pLevel;
-            player.sendSystemMessage(Component.literal("You've gained the power of Thor!"));
+
+//            player.openMenu(getMenuProvider(pLevel, pPos));
 
             for(int i = 0; i < 5; ++i) {
                 serverlevel.sendParticles(ParticleTypes.SONIC_BOOM, player.getX() + pLevel.random.nextDouble(), (double)(player.getY() + 1), (double)player.getZ() + pLevel.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
             }
+        } else {
+            player.sendSystemMessage(Component.literal("You've gained the power of Thor!"));
+
         }
 
         return pStack;
+    }
+
+    @Nullable
+    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if (blockentity instanceof EnchantmentTableBlockEntity) {
+            Component component = ((Nameable) blockentity).getDisplayName();
+            return new SimpleMenuProvider((p_207906_, p_207907_, p_207908_) -> new EnchantmentMenu(p_207906_, p_207907_, ContainerLevelAccess.create(pLevel, pPos)), component);
+        } else {
+            return null;
+        }
     }
 
     @Override
