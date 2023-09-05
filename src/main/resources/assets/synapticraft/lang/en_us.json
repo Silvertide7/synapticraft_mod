@@ -1,4 +1,8 @@
 {
-  "item.synapticraft.skill_book": "Skill Book",
-  "creative_tab.skill_books": "Skill Books"
+  "item.synapticraft.skill_book_set_level": "Skill Book - Set Level",
+  "item.synapticraft.skill_book_add_xp": "Skill Book - Add XP",
+  "item.synapticraft.skill_book_add_level": "Skill Book - Add Level",
+  "creative_tab.skill_books": "Skill Books",
+
+  "tooltip.synapticraft.skill_book.tooltip.shift": "Press §eSHIFT§r for more Information"
 }
