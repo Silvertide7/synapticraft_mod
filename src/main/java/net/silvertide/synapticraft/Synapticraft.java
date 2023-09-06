@@ -15,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.silvertide.synapticraft.blocks.ModBlocks;
+import net.silvertide.synapticraft.effects.ModEffects;
 import net.silvertide.synapticraft.items.ModItems;
 import net.silvertide.synapticraft.tabs.ModCreativeModeTabs;
 import org.slf4j.Logger;
@@ -37,6 +38,8 @@ public class Synapticraft
         ModBlocks.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ModItems.register(modEventBus);
+
+        ModEffects.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
