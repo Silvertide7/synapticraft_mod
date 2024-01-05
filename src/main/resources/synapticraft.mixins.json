@@ -1,14 +1,14 @@
 {
-  "required": false,
-  "minVersion": "0.7",
-  "package": "",
-  "compatibilityLevel": "JAVA_17",
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.silvertide.synapticraft.mixin",
   "refmap": "synapticraft.refmap.json",
-  "mixins": [],
-  "server": [
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BonemealItemUseOnMixin"
   ],
-  "client": [
-  ],
+  "server": [],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

@@ -3,6 +3,13 @@
     "description": {
       "text": "${mod_id} resources"
     },
-    "pack_format": 15
+    "pack_format": 9
+  },
+  "filter": {
+    "block": [
+      {
+        "path": "pmmo"
+      }
+    ]
   }
 }
