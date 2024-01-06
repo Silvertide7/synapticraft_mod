@@ -31,8 +31,10 @@ public class EventHandler {
                 skillMap.put("indirectMagic", "warding");
 
                 if(skillMap.get(sourceName) != null) {
-                    float xpAward = damageMitigated * Config.PHYSICAL_DAMAGE_MITIGATED_REWARD.get();
-                    APIUtils.addXp(skillMap.get(sourceName), serverPlayer, (long) xpAward);
+                    String skillName = skillMap.get(sourceName);
+                    float multiplier = skillName.equals("warding") ? Config.MAGICAL_DAMAGE_MITIGATED_REWARD.get() : Config.PHYSICAL_DAMAGE_MITIGATED_REWARD.get();
+                    float xpAward = damageMitigated * multiplier;
+                    APIUtils.addXp(skillName, serverPlayer, (long) xpAward);
                 }
             }
         }
